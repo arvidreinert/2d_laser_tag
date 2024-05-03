@@ -26,7 +26,7 @@ class Main (Scene):
 		x = get_screen_size()
 		self.ui_objects = {}
 		#range, speed, magazine, reloadtime in frames
-		self.gun_stats = [100,12,10, 90]
+		self.gun_stats = [100,13,10, 90]
 		self.loaded_amo = self.gun_stats[2]
 		self.screenx = x[0]
 		self.screeny = x[1]
