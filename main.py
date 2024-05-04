@@ -180,10 +180,13 @@ class Main (Scene):
 						x = self.ui_objects[self.player_seen[1]].position[0]-self.ui_objects["player"].position[0]
 						y = self.ui_objects[self.player_seen[1]].position[1]-self.ui_objects["player"].position[1]
 						dist = math.sqrt(x*x+y*y)
+						s = self.score+10
 						x = x/dist
+						x = x*s
 						y = y/dist
+						y = y*s
 						sound.play_effect("gun-shot-1-176892.mp3")
-						self.enemy_bullet = [True,(x,y),90+self.score]
+						self.enemy_bullet = [True,(x,y),90+self.score+dist]
 						bullet = SpriteNode("IMG_6822.PNG", size = (100,100), position = self.ui_objects[self.player_seen[1]].position)
 						print(x,y,"enemy")
 						bullet.z_position = 3
@@ -258,8 +261,6 @@ class Main (Scene):
 						self.ui_objects["bullet"].position = (self.ui_objects[object].position[0]+xdist/20*-1,
 						self.ui_objects[object].position[1]+ydist/20*-1)
 					
-					if self.enemy_bullet[0] == True:
-						print("operating")
 						
 				# players shoot here
 				if self.shoot_active[0]:
