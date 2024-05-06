@@ -156,7 +156,8 @@ class Main (Scene):
 							if u == 2:
 								self.gun_stats[2] += 1
 							if u == 3:
-								self.gun_stats[3] -= random.randint(1,5)
+								if self.gun_stats[3] >= 10:
+									self.gun_stats[3] -= random.randint(1,5)
 							print(self.gun_stats)
 							#reset chest
 							self.ui_objects[object].remove_from_parent()
