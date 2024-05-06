@@ -26,7 +26,7 @@ class Main (Scene):
 		x = get_screen_size()
 		self.ui_objects = {}
 		#range, speed, magazine, reloadtime in frames
-		self.gun_stats = [100,15,10, 90]
+		self.gun_stats = [50,15,10, 90]
 		self.loaded_amo = self.gun_stats[2]
 		self.screenx = x[0]
 		self.screeny = x[1]
@@ -121,6 +121,26 @@ class Main (Scene):
 			xdist = location[0]-self.shoot_button.position[0]
 			ydist = location[1]-self.shoot_button.position[1]
 			dist = math.sqrt(xdist*xdist+ydist*ydist)
+			if dist <= 90:
+				for object in self.ui_objects:
+					if "chest" in object:
+						exdist = self.ui_objects["player"].position[0]-self.ui_objects[object].position[0]
+						eydist = self.ui_objects["player"].position[1]-self.ui_objects[object].position[1]
+						edist = math.sqrt(exdist*exdist+eydist*eydist)
+						if edist <= 0:
+							edist = edist*-1 
+						if edist <= 100:
+							u = random.randint(0,3)
+							if u == 0:
+								self.gun_stats[0] += random.randint(1,4)
+							if u == 1:
+								self.gun_stats[1] += 1
+							if u == 2:
+								self.gun_stats[2] += 1
+							if u == 3:
+								self.gun_stats[3] -= random.randint(1,5)
+							print(self.gun_stats)
+			
 			if dist <= 90 and self.loaded_amo >= 0 and self.reloadingframes[1] != True and self.loaded_amo != 0:
 				x = self.ui_objects["joystick"].position[0]-self.ui_objects["joystick_ball"].position[0]
 				y = self.ui_objects["joystick"].position[1]-self.ui_objects["joystick_ball"].position[1]
@@ -141,6 +161,7 @@ class Main (Scene):
 			if self.loaded_amo == 0:
 				self.reloadingframes[1] = True
 				sound.play_effect("mag-reload-81594.mp3")
+		
 		
 	def touch_moved(self,touch):
 		self.ball_folow = False
