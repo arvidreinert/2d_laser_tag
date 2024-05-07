@@ -340,9 +340,11 @@ class Main (Scene):
 							dist = dist*-1
 						if dist <= 50:
 							self.playerlife -= 1
+							#player was hit
 							print("player_hit")
 							self.enemy_move = [False,(),50,0,False]
 							self.enemy_bullet = [False]
+							self.ui_objects[self.player_seen[1]].remove_from_parent()
 							enemy_color = (float(f"{random.randint(0,1)}.{random.randint(0,9)}"), float(f"0.{random.randint(0,9)}"), float(f"{random.randint(0,1)}.{random.randint(0,9)}"))
 							enemy = SpriteNode("IMG_6813.JPG", size = (50,50), position = (random.randint(50, self.screenx*20-50),random.randint(50, self.screeny*20-50)))
 							enemy.z_position = 4
