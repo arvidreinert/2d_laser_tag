@@ -129,7 +129,6 @@ class Main (Scene):
 				y = y/distd
 				x*=self.gun_stats[1]
 				y*= self.gun_stats[1]
-				print(x,y,"player")
 				sound.play_effect("gun-shot-1-176892.mp3")
 				self.loaded_amo -= 1
 				self.shoot_active = [True,(x,y),self.gun_stats[0]+distd]
@@ -342,16 +341,9 @@ class Main (Scene):
 							self.playerlife -= 1
 							#player was hit
 							print("player_hit")
-							self.enemy_move = [False,(),50,0,False]
+							#self.enemy_move = [False,(),50,0,False]
 							self.enemy_bullet = [False]
-							self.ui_objects[self.player_seen[1]].remove_from_parent()
-							enemy_color = (float(f"{random.randint(0,1)}.{random.randint(0,9)}"), float(f"0.{random.randint(0,9)}"), float(f"{random.randint(0,1)}.{random.randint(0,9)}"))
-							enemy = SpriteNode("IMG_6813.JPG", size = (50,50), position = (random.randint(50, self.screenx*20-50),random.randint(50, self.screeny*20-50)))
-							enemy.z_position = 4
-							enemy.color = enemy_color
-							self.add_child(enemy)
-							self.ui_objects[self.player_seen[1]] = enemy
-							self.player_seen = [False,False]
+							#self.ui_objects[self.player_seen[1]].remove_from_parent()
 							for object in self.ui_objects:
 								if "bulletenemy" in object:
 									print("bullet del")
