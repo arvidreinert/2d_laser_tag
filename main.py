@@ -148,6 +148,8 @@ class Main (Scene):
 								edist = edist*-1 
 							if edist <= 100:
 								self.amo += 10
+								if random.randint(0,3) == 0:
+									self.playerlife += 1
 								u = random.randint(0,3)
 								if u == 0:
 									self.gun_stats[0] += random.randint(1,4)
@@ -158,7 +160,6 @@ class Main (Scene):
 								if u == 3:
 									if self.gun_stats[3] >= 10:
 										self.gun_stats[3] -= random.randint(1,5)
-								print(self.gun_stats)
 								#reset chest
 								self.ui_objects[object].remove_from_parent()
 								chest = SpriteNode("IMG_6820.PNG", size = (1000,1000), position = (random.randint(50, self.screenx*20-50),random.randint(50, self.screeny*20-50)))
@@ -206,7 +207,6 @@ class Main (Scene):
 				if self.enemy_bullet[0] == False:
 					if random.randint(1,100-self.score) == 1:
 						#enemy attack enemy: self.ui_objects[self.player_seen[1]].position[0]
-						print("pau")
 						if self.player_seen[1] != False:
 							x = self.ui_objects[self.player_seen[1]].position[0]-self.ui_objects["player"].position[0]
 							y = self.ui_objects[self.player_seen[1]].position[1]-self.ui_objects["player"].position[1]
@@ -232,14 +232,13 @@ class Main (Scene):
 					self.enemy_move[3] = 0
 				else:
 					if self.enemy_move[3] <= self.enemy_move[2]:
-						if self.screenx-50 <= self.ui_objects[self.player_seen[1]].position[0]+self.enemy_move[1][0]*0.01 and 50 >= self.ui_objects[self.player_seen[1]].position[0]+self.enemy_move[1][0]*0.01:
-							if self.screeny-50 <= self.ui_objects[self.player_seen[1]].position[1]+self.enemy_move[1][1]*0.01 and 50 >= self.ui_objects[self.player_seen[1]].position[1]+self.enemy_move[1][1]*0.01:
+						if self.screenx-50 >= self.ui_objects[self.player_seen[1]].position[0]+self.enemy_move[1][0]*0.01 and 50 <= self.ui_objects[self.player_seen[1]].position[0]+self.enemy_move[1][0]*0.01:
+							if self.screeny-50 >= self.ui_objects[self.player_seen[1]].position[1]+self.enemy_move[1][1]*0.01 and 50 <= self.ui_objects[self.player_seen[1]].position[1]+self.enemy_move[1][1]*0.01:
 								self.ui_objects[self.player_seen[1]].position = (self.ui_objects[self.player_seen[1]].position[0]+self.enemy_move[1][0]*0.01,
 								self.ui_objects[self.player_seen[1]].position[1]+self.enemy_move[1][1]*0.01)
 						self.enemy_move[3] += 1
 					else:
 						if self.enemy_move[4] != True:
-							print("try reset")
 							self.enemy_move[0] = False
 					
 			self.amobar.text = f"{self.loaded_amo}/{self.amo}"
@@ -284,7 +283,6 @@ class Main (Scene):
 									if edist <= 0:
 										edist = edist*-1
 									if edist <= self.screeny*0.5:
-										print("enemy spotetd")
 										self.player_seen = [True,object]
 								self.ui_objects[object].position = (self.ui_objects[object].position[0]+xdist/20*-1,
 							self.ui_objects[object].position[1]+ydist/20*-1)
@@ -308,7 +306,6 @@ class Main (Scene):
 									dist = dist*-1
 								if dist <= 50:
 									self.score += 1
-									print("enemy_killed")
 									self.ui_objects[self.player_seen[1]].remove_from_parent()
 									self.enemy_move = [False,(),50,0,False]
 									self.enemy_bullet = [False]
@@ -345,13 +342,11 @@ class Main (Scene):
 							if dist <= 50:
 								self.playerlife -= 1
 								#player was hit
-								print("player_hit")
 								#self.enemy_move = [False,(),50,0,False]
 								self.enemy_bullet = [False]
 								#self.ui_objects[self.player_seen[1]].remove_from_parent()
 								for object in self.ui_objects:
 									if "bulletenemy" in object:
-										print("bullet del")
 										self.ui_objects[object].remove_from_parent()
 								self.enemy_bullet = [False]
 						else:
@@ -364,7 +359,7 @@ class Main (Scene):
 		else:
 			#range, speed, magazine, reloadtime in frames
 			self.amobar.position = (self.screenx/2,self.screeny/2+100)
-			self.amobar.text = f"you achived a score of {self.score}\nyour gun stats are like this:\nrange:{self.gun_stats[0]} speed:{self.gun_stats[1]} magazin capacity:{self.gun_stats[2]} reloading time in s:{self.gun_stats[3]/60}"
+			self.amobar.text = f"you achived a score of {self.score}\nyour gun stats are like this:\nrange:{self.gun_stats[0]} speed:{self.gun_stats[1]} magazin capacity:{self.gun_stats[2]} reloading time in s:{round(self.gun_stats[3]/60,2)}"
 			
 					
 if __name__ == '__main__':
