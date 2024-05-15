@@ -100,7 +100,7 @@ class Main (Scene):
 		self.setup_done = True
 		
 		
-	def touch_began(self,touch): 
+	def touch_began(self,touch):
 		if self.playerlife >= 0 and self.playerlife != 0:
 			self.ball_folow = False
 			location = touch.location
@@ -169,6 +169,13 @@ class Main (Scene):
 				if self.loaded_amo == 0:
 					self.reloadingframes[1] = True
 					sound.play_effect("mag-reload-81594.mp3")
+		elif self.playerlife == 0:
+			for object in self.ui_objects:
+				self.ui_objects[object].remove_from_parent()
+			self.amobar.remove_from_parent()
+			self.background.remove_from_parent()
+			self.shoot_button.remove_from_parent()
+			self.setup()
 		
 		
 	def touch_moved(self,touch):
