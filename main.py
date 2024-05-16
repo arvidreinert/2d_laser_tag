@@ -366,8 +366,7 @@ class Main (Scene):
 		else:
 			#range, speed, magazine, reloadtime in frames
 			self.amobar.position = (self.screenx/2,self.screeny/2+100)
-			self.amobar.text = f"you achived a score of {self.score}\nyour gun stats are like this:\nrange:{self.gun_stats[0]} speed:{self.gun_stats[1]} magazin capacity:{self.gun_stats[2]} reloading time in s:{round(self.gun_stats[3]/60,2)}"
+			self.amobar.text = f"you achived a score of {self.score}\nyour gun stats are like this:\nrange:{self.gun_stats[0]} speed:{self.gun_stats[1]} magazin capacity:{self.gun_stats[2]} reloading time in s:{round(self.gun_stats[3]/60,2)}\n\n\n\n\t\t\t\t\t\t\tclick to respawn"
 			
-					
 if __name__ == '__main__':
 	run(Main(), PORTRAIT, show_fps=True)
